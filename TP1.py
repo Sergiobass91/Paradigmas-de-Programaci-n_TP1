@@ -1,7 +1,8 @@
-# TP1 Paradimas de Programacion
-# #Sergio Beltran Galvis Comision A
+#TP1 Paradimas de Programacion
+#Sergio Beltran Galvis Comision A
 
 import math
+from distancia import distanciaAlOrigen
 
 datosParticipante = {
     'numeroId': 0,
@@ -10,12 +11,6 @@ datosParticipante = {
     'sexo': '',
     'ubicacionDisparo': []
     }
-
-def distanciaAlOrigen(disparoX, disparoY):
-    
-    ubicacionDisparo = sqtr(pow(disparoX,2) + pow(disparoY, 2))
-    return ubicacionDisparo
-
 
 def cargaParticipantes():
 
@@ -29,7 +24,6 @@ def cargaParticipantes():
             datosParticipante['edad'] = int(input("Ingrese la edad del participante: "))
             datosParticipante['sexo'] = input("Ingrese el sexo del participante: ")
             for disparoX in range(3):
-                datosParticipante['ubicacionDisparo'].append(int(input(f"Ingrese la coordenada del disparo en X (disparo{disparoX+1}): "))
+                datosParticipante['ubicacionDisparo'].append(int(input(f"Ingrese la coordenada del disparo en X (disparo{disparoX+1}): ")))
                 for disparoY in range(3):
-                    datosParticipante['ubicacionDisparo'].append(int(input(f"Ingrese la coordenada del disparo en Y (disparo{disparoY+1}): "))
-
+                    datosParticipante['ubicacionDisparo'].append(int(input(f"Ingrese la coordenada del disparo en Y (disparo{disparoY+1}): ")))
