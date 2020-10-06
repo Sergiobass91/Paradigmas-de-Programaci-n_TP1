@@ -1,2 +1,35 @@
-#TP1 Paradimas de Programación
-#Sergio Beltrán Galvis Comisión A
+# TP1 Paradimas de Programacion
+# #Sergio Beltran Galvis Comision A
+
+import math
+
+datosParticipante = {
+    'numeroId': 0,
+    'nombreApellido': '',
+    'edad': 0,
+    'sexo': '',
+    'ubicacionDisparo': []
+    }
+
+def distanciaAlOrigen(disparoX, disparoY):
+    
+    ubicacionDisparo = sqtr(pow(disparoX,2) + pow(disparoY, 2))
+    return ubicacionDisparo
+
+
+def cargaParticipantes():
+
+    while True:
+
+        datosParticipante['numeroId'] = int(input("Ingrese el nÃºmero del participante: "))
+        if datosParticipante['numeroId'] == 999:
+            break
+        else:
+            datosParticipante['nombreApellido'] = input("Ingrese el nombre y apellido del participante: ")
+            datosParticipante['edad'] = int(input("Ingrese la edad del participante: "))
+            datosParticipante['sexo'] = input("Ingrese el sexo del participante: ")
+            for disparoX in range(3):
+                datosParticipante['ubicacionDisparo'].append(int(input(f"Ingrese la coordenada del disparo en X (disparo{disparoX+1}): "))
+                for disparoY in range(3):
+                    datosParticipante['ubicacionDisparo'].append(int(input(f"Ingrese la coordenada del disparo en Y (disparo{disparoY+1}): "))
+
