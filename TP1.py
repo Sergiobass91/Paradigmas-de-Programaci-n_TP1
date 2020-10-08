@@ -1,8 +1,8 @@
 #TP1 Paradimas de Programacion
 #Sergio Beltran Galvis Comision A
 
-import math
 from distancia import distanciaAlOrigen
+from  promedio import promedioDisparos
 
 datosParticipante = {
     'numeroId': 0,
@@ -32,7 +32,10 @@ def cargaParticipantes():
                 auxDisparoY = float(input(f"Ingrese la coordenada del disparo {disparo+1} en Y: "))
                 datosParticipante['ubicacionDisparo'].append(round(distanciaAlOrigen(auxDisparoX, auxDisparoY),2))
                 
-    print(datosParticipante)
     return datosParticipante
 
-prueba = cargaParticipantes()
+participantes = cargaParticipantes()
+print(participantes)
+
+if __name__ == "__main__":
+    pass
