@@ -4,20 +4,21 @@
 from distancia import distanciaAlOrigen
 from  promedio import promedioDisparos
 
-datosParticipante = {
-    'numeroId': 0,
-    'nombreApellido': '',
-    'edad': 0,
-    'sexo': '',
-    'ubicacionDisparo': []
-    }
-
 def cargaParticipantes():
 
     auxDisparoX = 0
     auxDisparoY = 0
+    listaParticipantes = []
 
     while True:
+
+        datosParticipante = {
+            'numeroId': 0,
+            'nombreApellido': '',
+            'edad': 0,
+            'sexo': '',
+            'ubicacionDisparo': []
+        }
 
         datosParticipante['numeroId'] = int(input("Ingrese el número del participante (999 para finalizar): "))
         if datosParticipante['numeroId'] == 999:
@@ -31,11 +32,13 @@ def cargaParticipantes():
                 auxDisparoX = float(input(f"Ingrese la coordenada del disparo {disparo+1} en X: "))
                 auxDisparoY = float(input(f"Ingrese la coordenada del disparo {disparo+1} en Y: "))
                 datosParticipante['ubicacionDisparo'].append(round(distanciaAlOrigen(auxDisparoX, auxDisparoY),2))
-                
-    return datosParticipante
+        listaParticipantes.append(datosParticipante)
+
+    return listaParticipantes
 
 participantes = cargaParticipantes()
 print(participantes)
+
 
 if __name__ == "__main__":
     pass
