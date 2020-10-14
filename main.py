@@ -4,6 +4,7 @@
 from distancia import distanciaAlOrigen
 from  promedio import promedioDisparos
 from mejorDisparo import mejorDisparo
+import csv
 
 
 def cargaParticipantes():
@@ -20,7 +21,8 @@ def cargaParticipantes():
             'edad': 0,
             'sexo': '',
             'ubicacionDisparo': [],
-            'mejorDisparo': 0
+            'mejorDisparo': 0,
+            'promedioDisparo': 0
         }
         datosParticipante['numeroId'] = int(input("Ingrese el número del participante (999 para finalizar): "))
         
@@ -40,7 +42,7 @@ def cargaParticipantes():
         else:
             datosParticipante['nombreApellido'] = input("Ingrese el nombre y apellido del participante: ").lower()
             datosParticipante['edad'] = int(input("Ingrese la edad del participante: "))
-            datosParticipante['sexo'] = input("Ingrese el sexo del participante: ").upper()
+            datosParticipante['sexo'] = input("Ingrese el sexo del participante (F/M): ").upper()
             for disparo in range(3):
                 auxDisparoX = float(input(f"Ingrese la coordenada del disparo {disparo+1} en X: "))
                 while auxDisparoX < -80 or auxDisparoX > 80:
@@ -55,8 +57,7 @@ def cargaParticipantes():
                 datosParticipante['ubicacionDisparo'].append(round(distanciaAlOrigen(auxDisparoX, auxDisparoY),2))
 
         datosParticipante['mejorDisparo'] = mejorDisparo(datosParticipante['ubicacionDisparo'])
-        print(datosParticipante['ubicacionDisparo'])
-
+        datosParticipante['promedioDisparo'] = promedioDisparos(datosParticipante['ubicacionDisparo'])
 
         listaParticipantes.append(datosParticipante)
 
@@ -66,7 +67,13 @@ participantes = cargaParticipantes()
 print(participantes)
 
 def main():
-    pass
+    print("\n" + "="*20 + " Podio de Ganadores " + "="*20)
+
+    with open('tablaParticipantes.csv', 'w') as csvfile:
+           writer = csv.writer(csvfile)
+           writer.writerows(participantes)
+
+
 
 if __name__ == "__main__":
     main()
