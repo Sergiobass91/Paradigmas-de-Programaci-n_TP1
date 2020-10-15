@@ -70,9 +70,11 @@ def main():
     print("\n" + "="*20 + " Podio de Ganadores " + "="*20)
 
     with open('tablaParticipantes.csv', 'w') as csvfile:
-           writer = csv.writer(csvfile)
+        for i in participantes:
+           writer = csv.DictWriter(csvfile, i.keys())
+           #writer.writeheader()
            writer.writerows(participantes)
-
+    csvfile.close() 
 
 
 if __name__ == "__main__":
