@@ -3,4 +3,4 @@ def promedioDisparos(disparo):
     for valor in disparo:
         suma += valor
     
-    return suma /len(disparo)
+    return round(suma /len(disparo),2)

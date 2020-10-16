@@ -54,7 +54,7 @@ def cargaParticipantes():
                     print("Número fuera de rango, ingrese un número entre (-80; 80)")
                     auxDisparoY = float(input(f"Ingrese la coordenada del disparo {disparo+1} en Y: "))
                 
-                datosParticipante['ubicacionDisparo'].append(round(distanciaAlOrigen(auxDisparoX, auxDisparoY),2))
+                datosParticipante['ubicacionDisparo'].append(distanciaAlOrigen(auxDisparoX, auxDisparoY))
 
         datosParticipante['mejorDisparo'] = mejorDisparo(datosParticipante['ubicacionDisparo'])
         datosParticipante['promedioDisparo'] = promedioDisparos(datosParticipante['ubicacionDisparo'])
@@ -67,13 +67,14 @@ participantes = cargaParticipantes()
 print(participantes)
 
 def main():
-    print("\n" + "="*20 + " Podio de Ganadores " + "="*20)
+    #print("\n" + "="*20 + " Podio de Ganadores " + "="*20)
 
     with open('tablaParticipantes.csv', 'w') as csvfile:
-        for i in participantes:
-           writer = csv.DictWriter(csvfile, i.keys())
-           #writer.writeheader()
-           writer.writerows(participantes)
+        
+        for participante in participantes:
+            writer = csv.DictWriter(csvfile, fieldnames= participante.keys())
+            writer.writeheader()
+            writer.writerow(participante)
     csvfile.close() 
 
 
