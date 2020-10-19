@@ -64,17 +64,34 @@ def cargaParticipantes():
     return listaParticipantes
 
 participantes = cargaParticipantes()
-print(participantes)
+print(participantes) #DEBUG
 
 def main():
-    #print("\n" + "="*20 + " Podio de Ganadores " + "="*20)
+
+    print("\n" + "="*20 + " Podio de Ganadores " + "="*20)
+    ordenParticipantes = sorted(participantes, key= lambda k:k['mejorDisparo'])
+    print(ordenParticipantes)
+    podioGanadores = []
+    
+    try:
+        with open('podioGanadores.txt', 'w') as txtFile:
+            for ganador in ordenParticipantes:
+                txtFile.write("PODIO DE GANADORES")
+                txtFile.write(ganador[0])
+                txtFile.write("\n")
+                txtFile.write(ganador[1])
+                txtFile.write("\n")
+                txtFile.write(ganador[2])
+
+    except:
+        pass
 
     with open('tablaParticipantes.csv', 'w') as csvfile:
         
         for participante in participantes:
             writer = csv.DictWriter(csvfile, fieldnames= participante.keys())
             writer.writeheader()
-            writer.writerow(participante)
+            writer.writerows(participantes)
     csvfile.close() 
 
 
