@@ -68,23 +68,18 @@ print(participantes) #DEBUG
 
 def main():
 
-    print("\n" + "="*20 + " Podio de Ganadores " + "="*20)
+    print("\n" + "="*40 + "¡¡¡ Podio de Ganadores !!!" + "="*40 + "\n")
     ordenParticipantes = sorted(participantes, key= lambda k:k['mejorDisparo'])
-    print(ordenParticipantes)
+    print(ordenParticipantes) #DEBUG
+    print(ordenParticipantes[0]) #DEBUG
+    print(ordenParticipantes[0]['numeroId']) #DEBUG
+    print(ordenParticipantes[0]['nombreApellido']) #DEBUG
+    print(ordenParticipantes[0]['mejorDisparo']) #DEBUG
     podioGanadores = []
     
-    try:
-        with open('podioGanadores.txt', 'w') as txtFile:
-            for ganador in ordenParticipantes:
-                txtFile.write("PODIO DE GANADORES")
-                txtFile.write(ganador[0])
-                txtFile.write("\n")
-                txtFile.write(ganador[1])
-                txtFile.write("\n")
-                txtFile.write(ganador[2])
-
-    except:
-        pass
+    with open('podioGanadores.txt', 'w') as txtFile:
+        for ganador in ordenParticipantes:
+            txtFile.write("PODIO DE GANADORES")
 
     with open('tablaParticipantes.csv', 'w') as csvfile:
         
