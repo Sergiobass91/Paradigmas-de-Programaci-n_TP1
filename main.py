@@ -1,94 +1,80 @@
-#TP1 Paradimas de Programacion
-#Sergio Beltran Galvis Comision A
+#TP1 Paradimas de Programación
+#Sergio Beltrán Galvis Comisión A
 
-from distancia import distanciaAlOrigen
-from  promedio import promedioDisparos
-from mejorDisparo import mejorDisparo
+from cargaParticipantes import cargaParticipantes
 import csv
-
-
-def cargaParticipantes():
-
-    auxDisparoX = 0
-    auxDisparoY = 0
-    listaParticipantes = []
-
-    while True:
-
-        datosParticipante = {
-            'numeroId': 0,
-            'nombreApellido': '',
-            'edad': 0,
-            'sexo': '',
-            'ubicacionDisparo': [],
-            'mejorDisparo': 0,
-            'promedioDisparo': 0
-        }
-        datosParticipante['numeroId'] = int(input("Ingrese el número del participante (999 para finalizar): "))
-        
-        #Salida del programa{
-        if datosParticipante['numeroId'] == 999:
-            if len(listaParticipantes) == 0:
-                print("No se cargó ningún participante.")
-            print("Finalizó la carga de participantes.")
-            break
-        #}
-
-        # for i in listaParticipantes:
-        #     if datosParticipante['numeroId'] in listaParticipantes[i]['numeroId']:
-        #         print("Número de participante ya seleccionado, ingrese otro número de identificación")
-        #         datosParticipante['numeroId'] = int(input("Ingrese el número del participante (999 para finalizar): "))
-
-        else:
-            datosParticipante['nombreApellido'] = input("Ingrese el nombre y apellido del participante: ").lower()
-            datosParticipante['edad'] = int(input("Ingrese la edad del participante: "))
-            datosParticipante['sexo'] = input("Ingrese el sexo del participante (F/M): ").upper()
-            for disparo in range(3):
-                auxDisparoX = float(input(f"Ingrese la coordenada del disparo {disparo+1} en X: "))
-                while auxDisparoX < -80 or auxDisparoX > 80:
-                    print("Número fuera de rango, ingrese un número entre (-80; 80)")
-                    auxDisparoX = float(input(f"Ingrese la coordenada del disparo {disparo+1} en X: "))
-
-                auxDisparoY = float(input(f"Ingrese la coordenada del disparo {disparo+1} en Y: "))
-                while auxDisparoY < -80 or auxDisparoY > 80:
-                    print("Número fuera de rango, ingrese un número entre (-80; 80)")
-                    auxDisparoY = float(input(f"Ingrese la coordenada del disparo {disparo+1} en Y: "))
-                
-                datosParticipante['ubicacionDisparo'].append(distanciaAlOrigen(auxDisparoX, auxDisparoY))
-
-        datosParticipante['mejorDisparo'] = mejorDisparo(datosParticipante['ubicacionDisparo'])
-        datosParticipante['promedioDisparo'] = promedioDisparos(datosParticipante['ubicacionDisparo'])
-
-        listaParticipantes.append(datosParticipante)
-
-    return listaParticipantes
 
 participantes = cargaParticipantes()
 print(participantes) #DEBUG
 
 def main():
 
-    print("\n" + "="*40 + "¡¡¡ Podio de Ganadores !!!" + "="*40 + "\n")
-    ordenParticipantes = sorted(participantes, key= lambda k:k['mejorDisparo'])
-    print(ordenParticipantes) #DEBUG
-    print(ordenParticipantes[0]) #DEBUG
-    print(ordenParticipantes[0]['numeroId']) #DEBUG
-    print(ordenParticipantes[0]['nombreApellido']) #DEBUG
-    print(ordenParticipantes[0]['mejorDisparo']) #DEBUG
-    podioGanadores = []
-    
-    with open('podioGanadores.txt', 'w') as txtFile:
-        for ganador in ordenParticipantes:
-            txtFile.write("PODIO DE GANADORES")
+    ordenParticipantes = sorted(participantes, key= lambda k:k['mejorDisparo']) #Ordena por mejor Disparo
+    ordenPromedio = sorted(participantes, key= lambda k:k['promedioDisparo'], reverse=True) #Ordena por promedio Disparo (menor a mayor)
+    ordenPorEdad = sorted(participantes, key= lambda k:k['edad']) #Ordenada por Edad
 
-    with open('tablaParticipantes.csv', 'w') as csvfile:
-        
-        for participante in participantes:
-            writer = csv.DictWriter(csvfile, fieldnames= participante.keys())
+    try:
+        #Genera CSV informando tabla de datos de todos los participantes incriptos
+        with open('tablaParticipantes.csv', 'w', newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames= participantes[0].keys())
             writer.writeheader()
             writer.writerows(participantes)
-    csvfile.close() 
+        csvfile.close()
 
+        #Genera TXT escribiendo los primeros 3 participantes (valida si hay menos de 3)
+        with open('podioGanadores.txt', 'w', encoding="UTF-8") as txtFile:
+            txtFile.write( "="*40 + "¡¡¡ PODIO DE GANADDORES !!!" + "="*40 + "\n")
+            print("\n" + "="*40 + "¡¡¡ PODIO DE GANADDORES !!!" + "="*40 + "\n")
+
+            if len(ordenParticipantes) >= 3:
+                txtFile.writelines(f"1er Lugar\nNúmero Participante: {ordenParticipantes[0]['numeroId']}\nNombre y Apellido: {ordenParticipantes[0]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[0]['mejorDisparo']} \n\n")
+                print(f"1er Lugar\nNúmero Participante: {ordenParticipantes[0]['numeroId']}\nNombre y Apellido: {ordenParticipantes[0]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[0]['mejorDisparo']} \n\n")
+                txtFile.writelines(f"2do Lugar\nNúmero Participante: {ordenParticipantes[1]['numeroId']}\nNombre y Apellido: {ordenParticipantes[1]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[1]['mejorDisparo']} \n\n")
+                print(f"2do Lugar\nNúmero Participante: {ordenParticipantes[1]['numeroId']}\nNombre y Apellido: {ordenParticipantes[1]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[1]['mejorDisparo']} \n\n")
+                txtFile.writelines(f"3er Lugar\nNúmero Participante: {ordenParticipantes[2]['numeroId']}\nNombre y Apellido: {ordenParticipantes[2]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[2]['mejorDisparo']} \n")
+                print(f"3er Lugar\nNúmero Participante: {ordenParticipantes[2]['numeroId']}\nNombre y Apellido: {ordenParticipantes[2]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[2]['mejorDisparo']} \n")
+                txtFile.write("="*107 + "\n")
+                print("="*107 + "\n")
+
+                print(f"Último participante:\nNúmero Participante: {ordenPromedio[0]['numeroId']}\nNombre y Apellido: {ordenPromedio[0]['nombreApellido']}\nMejor Disparo: {ordenPromedio[0]['mejorDisparo']}\nPromedio Disparo: {ordenPromedio[0]['promedioDisparo']}")
+
+            elif len(ordenParticipantes) < 3 and len(ordenParticipantes) >=2:
+                txtFile.writelines(f"1er Lugar\nNúmero Participante: {ordenParticipantes[0]['numeroId']}\nNombre y Apellido: {ordenParticipantes[0]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[0]['mejorDisparo']} \n\n")
+                print(f"1er Lugar\nNúmero Participante: {ordenParticipantes[0]['numeroId']}\nNombre y Apellido: {ordenParticipantes[0]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[0]['mejorDisparo']} \n\n")
+                txtFile.writelines(f"2do (y último) lugar\nNúmero Participante: {ordenParticipantes[1]['numeroId']}\nNombre y Apellido: {ordenParticipantes[1]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[1]['mejorDisparo']} \n")
+                print(f"2do (y último) lugar\nNúmero Participante: {ordenParticipantes[1]['numeroId']}\nNombre y Apellido: {ordenParticipantes[1]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[1]['mejorDisparo']} \n")
+                txtFile.write("="*107 + "\n")
+                print("="*107 + "\n")
+
+            else:
+                txtFile.writelines(f"Único Participante\nNúmero Participante: {ordenParticipantes[0]['numeroId']}\nNombre y Apellido: {ordenParticipantes[0]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[0]['mejorDisparo']} \n")
+                print(f"Único Participante\nNúmero Participante: {ordenParticipantes[0]['numeroId']}\nNombre y Apellido: {ordenParticipantes[0]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[0]['mejorDisparo']} \n")
+                txtFile.write("="*107 + "\n")
+                print("="*107 + "\n")
+        txtFile.close()
+
+        cantidadHombres = 0
+        cantidadMujeres = 0
+        promedioEdadMujeres = 0
+        promedioDisparos = 0
+
+        for i in participantes:
+            if i['sexo'] == 'M':
+                cantidadHombres +=1
+            if i['sexo'] == 'F':
+                promedioEdadMujeres += i['edad']
+                cantidadMujeres +=1
+            
+            promedioDisparos += i['promedioDisparo']
+
+        print(f"la cantidad de concursantes fueron: {len(participantes)}\n")
+        print(f"La cantidad de hombres concursantes fueron: {cantidadHombres}\n")
+        print(f"El promedio de edad de las mujeres concursantes es de: {promedioEdadMujeres/cantidadMujeres}\n")
+        print(f"Participantes por edad ascendente: \n{ordenPorEdad}\n")
+        print(f"El promedio de todos los disparos es: {round(promedioDisparos/len(participantes),2)}")
+
+    except:
+        print("Sin particintes")
 
 if __name__ == "__main__":
     main()

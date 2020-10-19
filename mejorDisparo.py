@@ -1,5 +1,5 @@
 def mejorDisparo(disparo):
 
-    auxMejorDisparo = max(disparo)
+    auxMejorDisparo = min(disparo) #Menor número == más cercano al origen del plano.
 
     return auxMejorDisparo
