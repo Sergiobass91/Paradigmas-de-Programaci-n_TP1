@@ -1,16 +1,16 @@
-# Paradigmas-de-Programacion_TP1
-Primer TP - Paradigmas IFTS18
+# Paradigmas de Programación TP1
+#### Primer TP - Paradigmas IFTS18
 
-1)	Cada año se desarrolla el campeonato nacional de tiro con arco y flecha. Se desea reemplazar el sistema de seguimiento y control de los participantes por un programa escrito en Python.
+Cada año se desarrolla el campeonato nacional de tiro con arco y flecha. Se desea reemplazar el sistema de seguimiento y control de los participantes por un programa escrito en Python.
 Que es lo que sabemos del concurso:
+
 •	Pueden participar hombres y mujeres de todas las edades.
 •	Cada participante deberá realizar 3 disparos (obligatorio).
-•	Se dispara a un blanco cuyo centro coincide con el origen de coordenadas de un eje cartesiano (x, y). La mejor puntuación la obtiene el disparo más cercano al origen.
+•	Se dispara a un blanco cuyo centro coincide con el origen de coordenadas de un eje 	  cartesiano (x, y). La mejor puntuación la obtiene el disparo más cercano al origen.
 •	Cada participante tiene un número único que lo identifica del resto.
 •	El radio del tablero es de 80 cm.
 
-El programa debe realizar lo siguiente:
-•	Por cada participante, el programa debe permitir el ingreso de los siguientes datos:
+El programa debe realizar por cada participante, el ingreso de los siguientes datos:
 a)	Número único del participante.
 b)	Nombre y Apellido del participante.
 c)	Edad del participante.
