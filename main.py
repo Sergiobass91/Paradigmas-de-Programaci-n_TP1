@@ -36,7 +36,7 @@ def main():
                 txtFile.write("="*107 + "\n")
                 print("="*107 + "\n")
 
-                print(f"Último participante:\nNúmero Participante: {ordenPromedio[0]['numeroId']}\nNombre y Apellido: {ordenPromedio[0]['nombreApellido']}\nMejor Disparo: {ordenPromedio[0]['mejorDisparo']}\nPromedio Disparo: {ordenPromedio[0]['promedioDisparo']}")
+                print(f"Último participante:\nNúmero Participante: {ordenPromedio[0]['numeroId']}\nNombre y Apellido: {ordenPromedio[0]['nombreApellido']}\nMejor Disparo: {ordenPromedio[0]['mejorDisparo']}\nPromedio Disparo: {ordenPromedio[0]['promedioDisparo']}\n")
 
             elif len(ordenParticipantes) < 3 and len(ordenParticipantes) >=2:
                 txtFile.writelines(f"1er Lugar\nNúmero Participante: {ordenParticipantes[0]['numeroId']}\nNombre y Apellido: {ordenParticipantes[0]['nombreApellido']}\nMejor Disparo: {ordenParticipantes[0]['mejorDisparo']} \n\n")
@@ -56,7 +56,9 @@ def main():
         cantidadHombres = 0
         cantidadMujeres = 0
         promedioEdadMujeres = 0
+        auxPromedioDisparos = 0
         promedioDisparos = 0
+        mayorApromedioGral = []
 
         for i in participantes:
             if i['sexo'] == 'M':
@@ -65,13 +67,19 @@ def main():
                 promedioEdadMujeres += i['edad']
                 cantidadMujeres +=1
             
-            promedioDisparos += i['promedioDisparo']
+            auxPromedioDisparos += i['promedioDisparo']
+            promedioDisparos = round(auxPromedioDisparos/len(participantes),2)
+
+        for i in ordenPromedio:
+            if i['promedioDisparo'] > promedioDisparos:
+                mayorApromedioGral.append(i)
 
         print(f"la cantidad de concursantes fueron: {len(participantes)}\n")
         print(f"La cantidad de hombres concursantes fueron: {cantidadHombres}\n")
         print(f"El promedio de edad de las mujeres concursantes es de: {promedioEdadMujeres/cantidadMujeres}\n")
         print(f"Participantes por edad ascendente: \n{ordenPorEdad}\n")
-        print(f"El promedio de todos los disparos es: {round(promedioDisparos/len(participantes),2)}")
+        print(f"El promedio de todos los disparos es: {promedioDisparos}\n")
+        print(f"Participantes con promedio mayor al general: {mayorApromedioGral}\n")
 
     except:
         print("Sin particintes")

@@ -7,6 +7,7 @@ def cargaParticipantes():
     auxDisparoX = 0
     auxDisparoY = 0
     listaParticipantes = []
+    auxListaId = []
 
     while True:
 
@@ -20,7 +21,13 @@ def cargaParticipantes():
             'promedioDisparo': 0
         }
         datosParticipante['numeroId'] = int(input("Ingrese el número del participante (999 para finalizar): "))
-        
+
+        auxListaId.append(datosParticipante['numeroId'])
+        while auxListaId.count(datosParticipante['numeroId']) > 1:    
+            print("Número de participante ya seleccionado, ingrese otro número de identificación")
+            datosParticipante['numeroId'] = int(input("Ingrese el número del participante (999 para finalizar): "))
+            auxListaId.append(datosParticipante['numeroId'])
+
         #Salida del programa{
         if datosParticipante['numeroId'] == 999:
             if len(listaParticipantes) == 0:
@@ -29,21 +36,10 @@ def cargaParticipantes():
             break
         #}
 
-        # for i in listaParticipantes:
-        #     if datosParticipante['numeroId'] in listaParticipantes[i]['numeroId']:
-        #         print("Número de participante ya seleccionado, ingrese otro número de identificación")
-        #         datosParticipante['numeroId'] = int(input("Ingrese el número del participante (999 para finalizar): "))
-
         else:
             datosParticipante['nombreApellido'] = input("Ingrese el nombre y apellido del participante: ").lower()
-            while datosParticipante['nombreApellido'].isdigit() or datosParticipante['nombreApellido'].isalpha() == False:
-                datosParticipante['nombreApellido'] = input("Ingrese el nombre y apellido del participante: (Solo caracteres alfabeticos): ").lower()
-
             datosParticipante['edad'] = int(input("Ingrese la edad del participante: "))
-
             datosParticipante['sexo'] = input("Ingrese el sexo del participante (F/M): ").upper()
-            # while datosParticipante['sexo'] != 'M' or datosParticipante['sexo'] != 'F':
-            #     datosParticipante['sexo'] = input("Ingrese el sexo del participante (F/M): ").upper()
 
             for disparo in range(3):
                 auxDisparoX = float(input(f"Ingrese la coordenada del disparo {disparo+1} en X: "))
