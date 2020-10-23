@@ -5,9 +5,15 @@ from cargaParticipantes import cargaParticipantes
 import csv
 
 participantes = cargaParticipantes()
-print(participantes) #DEBUG
 
 def main():
+
+    cantidadHombres = 0
+    cantidadMujeres = 0
+    promedioEdadMujeres = 0
+    auxPromedioDisparos = 0
+    promedioDisparos = 0
+    mayorApromedioGral = []
 
     ordenParticipantes = sorted(participantes, key= lambda k:k['mejorDisparo']) #Ordena por mejor Disparo
     ordenPromedio = sorted(participantes, key= lambda k:k['promedioDisparo'], reverse=True) #Ordena por promedio Disparo (menor a mayor)
@@ -52,13 +58,6 @@ def main():
                 txtFile.write("="*107 + "\n")
                 print("="*107 + "\n")
         txtFile.close()
-
-        cantidadHombres = 0
-        cantidadMujeres = 0
-        promedioEdadMujeres = 0
-        auxPromedioDisparos = 0
-        promedioDisparos = 0
-        mayorApromedioGral = []
 
         for i in participantes:
             if i['sexo'] == 'M':
