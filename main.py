@@ -81,7 +81,7 @@ def main():
         print(f"Participantes con promedio mayor al general: {mayorApromedioGral}\n")
 
     except:
-        print("Sin particintes")
+        print("Sin participantes")
 
 if __name__ == "__main__":
     main()
